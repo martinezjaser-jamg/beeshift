@@ -534,14 +534,19 @@ function startClock(){function tick(){const n=new Date();document.getElementById
 
 // ── WORKER ──
 async function showWorker(){
-  setScreen('workerScreen');
-  document.getElementById('workerAvatar').textContent=currentUser.name[0].toUpperCase();
+  setScreen("workerScreen");
+  document.getElementById("workerAvatar").textContent=currentUser.name[0].toUpperCase();
   startClock();initGPS();
+  document.getElementById("btnIn").disabled=false;
+  document.getElementById("btnOut").disabled=true;
+  document.getElementById("btnBrkStart").disabled=true;
+  document.getElementById("btnBrkEnd").disabled=true;
+  document.getElementById("workerEntries").innerHTML="<div class=\"empty-state\">Loading entries...</div>";
   if(useFirebase){
-    const q=window._fb.query(window._fb.collection(fireDb,'entries'),window._fb.where('userId','==',currentUser.id),window._fb.orderBy('inTime','desc'));
+    const q=window._fb.query(window._fb.collection(fireDb,"entries"),window._fb.where("userId","==",currentUser.id),window._fb.orderBy("inTime","desc"));
     if(unsubscribe)unsubscribe();
     unsubscribe=window._fb.onSnapshot(q,snap=>{allEntries=snap.docs.map(d=>({id:d.id,...d.data()}));renderWorkerEntries();checkClockState();});
-  }else{await loadAllEntries();allEntries=allEntries.filter(e=>e.userId===currentUser.id);renderWorkerEntries();checkClockState();}
+  }else{loadAllEntries().then(()=>{allEntries=allEntries.filter(e=>e.userId===currentUser.id);renderWorkerEntries();checkClockState();});}
 }
 
 function checkClockState(){
