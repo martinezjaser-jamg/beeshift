@@ -1,14 +1,14 @@
 <!doctype html>
-
-<html lang="en">
+<html lang="en" translate="no" class="notranslate">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>BeeShift - Time & Payroll</title>
+<title>BeeShift</title>
+<meta name="google" content="notranslate">
+<meta name="robots" content="notranslate">
 
 <meta name="theme-color" content="#1a1400">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1a1400">
 <meta name="apple-mobile-web-app-title" content="BeeShift">
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -208,11 +208,26 @@ button:disabled{opacity:.35;cursor:not-allowed}
 .audit{font-size:11px;color:var(--muted);margin-top:4px}
 @media(max-width:760px){
   .adminGrid,.earnGrid{grid-template-columns:1fr 1fr}
-  .table-row{grid-template-columns:1.2fr .8fr .8fr}
-  .table-row span:nth-child(4),.table-row span:nth-child(5),.table-row span:nth-child(6),
-  .table-row b:nth-child(4),.table-row b:nth-child(5),.table-row b:nth-child(6){display:none}
+  .table-row{grid-template-columns:1.2fr .8fr .8fr 1fr!important}
+  .table-row span:nth-child(4),.table-row span:nth-child(5),
+  .table-row b:nth-child(4),.table-row b:nth-child(5){display:none!important}
+  .table-row span:nth-child(6),.table-row b:nth-child(6){display:block!important}
   .bigClockBtn{font-size:26px;min-height:112px}
 }
+
+
+.profilePhoto{width:74px;height:74px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);display:block;margin:0 auto 8px;background:#111}
+.profileMini{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);vertical-align:middle;margin-right:8px}
+.profilePlaceholder{width:74px;height:74px;border-radius:50%;border:3px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;background:#111;color:var(--muted);font-size:28px}
+
+.photoBox{position:relative;margin:10px 0;text-align:center}
+.photoInput{position:absolute;opacity:0;width:1px;height:1px}
+.photoBtn{display:block;width:100%;padding:16px;border-radius:18px;border:2px dashed var(--accent);background:#171200;color:var(--accent);font-weight:900;text-align:center}
+.photoHint{font-size:12px;color:var(--muted);margin-top:6px}
+.photoActions{display:flex;gap:6px;flex-wrap:wrap}
+.photoActions button{padding:7px 9px;font-size:12px;margin:2px}
+.verifyImg{max-width:92vw;max-height:70vh;border-radius:18px;box-shadow:0 12px 40px #000}
+
 @media(display-mode:standalone){
   body:before{
     content:"";
@@ -224,11 +239,124 @@ button:disabled{opacity:.35;cursor:not-allowed}
   }
   @keyframes splash{0%,75%{opacity:1}100%{opacity:0;visibility:hidden}}
 }
-</style>
 
+.notranslate{translate:no}
+.langBtn{position:fixed;right:12px;bottom:12px;z-index:80;background:#171200!important;color:var(--accent)!important;border:1px solid var(--accent)!important}
+.workerEditPhotoPreview{max-width:160px;border-radius:16px;margin:8px auto;display:block}
+
+/* Ultra premium logo + Android/iPhone app feel */
+.brand img,
+.topTitle img {
+  background: linear-gradient(135deg,#f5c400,#ffde59,#f5c400);
+  padding: 5px;
+  box-shadow:
+    0 0 20px rgba(245,196,0,.7),
+    0 0 60px rgba(245,196,0,.25),
+    0 20px 40px rgba(0,0,0,.7);
+  animation: logoFloat 3.5s ease-in-out infinite;
+}
+.brand img {
+  width: 100px;
+  height: 100px;
+  border-radius: 30px;
+  margin: 0 auto 12px;
+  object-fit: cover;
+}
+.topTitle img {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+.brand img:active,
+.topTitle img:active {transform: scale(0.95);transition:.1s}
+@keyframes logoFloat {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+}
+
+/* iPhone/Android style splash */
+#splashScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top,#3a2d00,#1a1400 55%);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: splashHide 1.8s ease forwards;
+}
+.splashInner {text-align:center;animation:splashLogo 1.4s ease forwards}
+.splashInner img {
+  width: 120px;
+  height: 120px;
+  border-radius: 34px;
+  object-fit: cover;
+  background: linear-gradient(135deg,#f5c400,#ffde59,#f5c400);
+  padding: 6px;
+  box-shadow:
+    0 0 28px rgba(245,196,0,.75),
+    0 0 75px rgba(245,196,0,.3),
+    0 20px 45px rgba(0,0,0,.75);
+}
+.splashInner div {
+  margin-top:14px;
+  color:#f5c400;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:.03em;
+}
+@keyframes splashLogo {
+  0% { opacity:0; transform:scale(.85) translateY(12px); }
+  45% { opacity:1; transform:scale(1.05) translateY(0); }
+  100% { opacity:1; transform:scale(1); }
+}
+@keyframes splashHide {
+  0%,75% { opacity:1; visibility:visible; }
+  100% { opacity:0; visibility:hidden; pointer-events:none; }
+}
+main{animation:screenEnter .35s ease}
+@keyframes screenEnter {
+  from { opacity:0; transform:translateY(10px) scale(.98); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+
+
+.liveStatsCard{
+  background:#171200;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  margin-top:10px;
+}
+.liveStatsCard p{margin:8px 0}
+
+.workerPdfRow{margin-top:12px}
+.workerPdfRow .pdfBtn{min-width:210px;background:#fff3b0!important;color:#1a1400!important}
+@media(max-width:760px){
+  .workerPdfRow{display:grid!important;grid-template-columns:1fr;gap:10px}
+  .workerPdfRow .pdfBtn{width:100%;max-width:360px;margin:0 auto}
+}
+
+.companyLogoPreview{max-width:170px;max-height:120px;border-radius:18px;margin:10px auto;display:block;border:2px solid var(--accent);background:#111;object-fit:contain}
+.companyKioskLogo{max-width:130px;max-height:90px;border-radius:18px;margin:8px auto 12px;display:block;border:2px solid var(--accent);background:#111;object-fit:contain;box-shadow:0 8px 28px #0008}
+.copyBox{background:#111;border:1px solid var(--border);border-radius:14px;padding:10px;margin:8px 0;color:var(--accent);font-weight:900;text-align:center;word-break:break-word}
+.codeHint{font-size:12px;color:var(--muted);margin-top:-4px;margin-bottom:8px}
+
+</style>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="BeeShift">
 </head>
 
 <body>
+<div id="splashScreen">
+  <div class="splashInner">
+    <img src="logo.png" alt="BeeShift logo">
+    <div>BeeShift</div>
+  </div>
+</div>
+
+<button id="langToggleBtn" class="langBtn" onclick="toggleAppLang()">Español</button>
 
 <main id="setup" class="hidden">
   <div class="brand"><img src="logo.png"><div>BeeShift</div></div>
@@ -238,13 +366,10 @@ button:disabled{opacity:.35;cursor:not-allowed}
 <main id="home">
   <div class="brand"><img src="logo.png"><div>BeeShift</div></div>
   <div class="card">
-    <button class="homeBtn" onclick="openDirectKiosk()">👷 Worker Kiosk</button>
+    <button class="homeBtn" onclick="openWorkerKioskStart()">👷 Worker Kiosk</button>
     <button class="homeBtn" onclick="openAdminLogin()">🔐 Admin Login</button>
-
-```
-<p class="muted" style="text-align:center">Workers use PIN kiosk. Admins login with password.</p>
-```
-
+    <button class="homeBtn smallLink" onclick="openCreateCompany()">➕ Create Company</button>
+    <p class="muted" style="text-align:center">Workers enter with company code + PIN. Admins enter with email + password.</p>
   </div>
 </main>
 
@@ -266,7 +391,7 @@ button:disabled{opacity:.35;cursor:not-allowed}
   <div class="card">
     <input id="email" placeholder="Admin email">
     <input id="pass" type="password" placeholder="Password">
-    <input id="company" value="beeshift-5014a-main" style="display:none">
+    <input id="company" placeholder="Company code">
     <div class="row">
       <button onclick="login()">Login</button>
       <button class="smallLink" onclick="screen('home')">Back</button>
@@ -281,6 +406,13 @@ button:disabled{opacity:.35;cursor:not-allowed}
   <div class="card">
     <input id="signupCompanyName" placeholder="Company name">
     <input id="signupCompanyCode" placeholder="Company code, example: twin-shine">
+    <div class="codeHint">Company code is auto-generated from company name, but you can edit it.</div>
+    <div class="photoBox">
+      <input id="signupCompanyLogo" class="photoInput" type="file" accept="image/*">
+      <label for="signupCompanyLogo" class="photoBtn">🏢 Add Company Logo</label>
+      <div class="photoHint">This logo appears in the worker kiosk for this company.</div>
+      <img id="signupCompanyLogoPreview" class="companyLogoPreview hidden">
+    </div>
     <input id="signupEmail" placeholder="Owner email">
     <input id="signupPass" type="password" placeholder="Password">
     <div class="row">
@@ -321,6 +453,12 @@ button:disabled{opacity:.35;cursor:not-allowed}
       <input id="workerName" placeholder="Worker name">
       <input id="workerPin" placeholder="PIN">
       <input id="workerRate" type="number" placeholder="Hourly rate">
+      <div class="photoBox">
+        <input id="workerProfilePhoto" class="photoInput" type="file" accept="image/*" capture="user">
+        <label for="workerProfilePhoto" class="photoBtn">📸 Add Worker Profile Photo</label>
+        <div class="photoHint">This photo is used by admin to compare against clock-in photos.</div>
+        <img id="workerProfilePreview" class="photoPreview hidden">
+      </div>
       <button onclick="addWorker()">Add Worker</button>
     </div>
     <div class="card"><h3>Workers</h3><div class="workerGrid" id="workers"></div></div>
@@ -338,12 +476,37 @@ button:disabled{opacity:.35;cursor:not-allowed}
   <section id="logsTab" class="hidden">
     <div class="card">
       <h3>All Time Logs</h3>
-      <div class="table-row"><b>Worker</b><b>Date</b><b>In</b><b>Out</b><b>Hours</b><b>Edit</b></div>
+      <div class="table-row"><b>Worker</b><b>Date</b><b>In</b><b>Out</b><b>Hours</b><b>Proof</b></div>
       <div id="entries"></div>
     </div>
   </section>
 
   <section id="settingsTab" class="hidden">
+
+    <div class="card">
+      <h3>Company Branding</h3>
+      <div id="currentCompanyLogoBox"></div>
+      <input id="companyDisplayName" placeholder="Company display name">
+      <div class="copyBox" id="companyCodeCopyBox"></div>
+      <button onclick="copyCompanyCode()">Copy Company Code</button>
+      <div class="photoBox">
+        <input id="settingsCompanyLogo" class="photoInput" type="file" accept="image/*">
+        <label for="settingsCompanyLogo" class="photoBtn">🏢 Replace Company Logo</label>
+        <div class="photoHint">Optional. This logo appears in the worker kiosk.</div>
+        <img id="settingsCompanyLogoPreview" class="companyLogoPreview hidden">
+      </div>
+      <button onclick="saveCompanyBranding()">Save Branding</button>
+      <div id="brandingMsg" class="muted"></div>
+    </div>
+
+    <div class="card">
+      <h3>Worker Kiosk QR / Link</h3>
+      <p class="muted">Workers can open this link or scan a QR to enter this company kiosk automatically.</p>
+      <div class="copyBox" id="kioskLinkBox"></div>
+      <div id="kioskQRBox" style="text-align:center"></div>
+      <button onclick="copyKioskLink()">Copy Kiosk Link</button>
+    </div>
+
     <div class="card">
       <h3>GPS Lock Settings</h3>
       <input id="siteLat" placeholder="Latitude">
@@ -356,36 +519,33 @@ button:disabled{opacity:.35;cursor:not-allowed}
       <div id="settingsMsg" class="muted"></div>
     </div>
 
-```
-<div class="card">
-  <h3>Plans + Limits</h3>
-  <div class="row">
-    <button onclick="setPlan('basic')">Basic 10</button>
-    <button onclick="setPlan('premium')">Business 25</button>
-    <button onclick="setPlan('pro')">Pro 50</button>
-  </div>
-</div>
+    <div class="card">
+      <h3>Plans + Limits</h3>
+      <div class="row">
+        <button onclick="setPlan('basic')">Basic 10</button>
+        <button onclick="setPlan('premium')">Business 25</button>
+        <button onclick="setPlan('pro')">Pro 50</button>
+      </div>
+    </div>
 
-<div class="card">
-  <h3>Preview</h3>
-  <button onclick="screen('kiosk')">Preview Kiosk</button>
-</div>
+    <div class="card">
+      <h3>Preview</h3>
+      <button onclick="screen('kiosk')">Preview Kiosk</button>
+    </div>
 
-<div class="card" style="border-color:#ff5252">
-  <h3 class="error">Danger Zone</h3>
-  <p class="muted">This deactivates the company. Data stays saved for safety, but workers will be blocked from entering.</p>
-  <input id="deleteConfirm" placeholder="Type company code to confirm">
-  <button class="danger" onclick="deleteCompanyAccount()">Delete Company Account</button>
-</div>
-```
-
+    <div class="card" style="border-color:#ff5252">
+      <h3 class="error">Danger Zone</h3>
+      <p class="muted">This deactivates the company. Data stays saved for safety, but workers will be blocked from entering.</p>
+      <input id="deleteConfirm" placeholder="Type company code to confirm">
+      <button class="danger" onclick="deleteCompanyAccount()">Delete Company Account</button>
+    </div>
   </section>
 </main>
 
 <main id="kiosk" class="hidden">
   <div class="brand"><img src="logo.png"><div>BeeShift Kiosk</div></div>
   <div class="card">
-    <div id="kioskCompany" class="muted"></div>
+    <div id="kioskCompanyLogo"></div><div id="kioskCompany" class="muted"></div>
     <div class="row"><button class="smallLink" onclick="leaveKiosk()">Change Company</button></div>
   </div>
   <div class="card"><h3>Workers</h3><div id="kioskWorkers"></div></div>
@@ -398,37 +558,44 @@ button:disabled{opacity:.35;cursor:not-allowed}
   </div>
 
   <div class="card">
-    <h2 id="activeWorkerName"></h2>
+    <div id="activeWorkerProfile"></div><h2 id="activeWorkerName"></h2>
     <div class="clock" id="liveClock">00:00:00</div>
 
-```
-<div class="earnGrid">
-  <div class="earnCard"><small>Today</small><b id="todayEarn">$0.00</b><span id="todayHours">0.00h</span></div>
-  <div class="earnCard"><small>This Week</small><b id="weekEarn">$0.00</b><span id="weekHours">0.00h</span></div>
-</div>
+    <div class="earnGrid">
+      <div class="earnCard"><small>Today</small><b id="todayEarn">$0.00</b><span id="todayHours">0.00h</span></div>
+      <div class="earnCard"><small>This Week</small><b id="weekEarn">$0.00</b><span id="weekHours">0.00h</span></div>
+    </div>
 
-<p>Status: <b id="workerStatus">Out</b></p>
-<p id="gpsStatus" class="muted">GPS not checked</p>
+    <div class="liveStatsCard">
+      <p>⏱ Work Time: <b id="liveWorkTime">00:00:00</b></p>
+      <p>💰 Live Earnings: <b id="liveEarnings">$0.00</b></p>
+      <p id="breakRow" style="display:none">⏸ Break Time: <b id="liveBreakTime">00:00</b></p>
+    </div>
 
-<input id="clockPhoto" type="file" accept="image/*" capture="user">
-<img id="photoPreview" class="photoPreview hidden">
+    <p>Status: <b id="workerStatus">Out</b></p>
+    <p id="gpsStatus" class="muted">GPS not checked</p>
 
-<button id="smartClockBtn" class="bigClockBtn" onclick="smartClockAction()">Clock In</button>
+    <div class="photoBox">
+      <input id="clockPhoto" class="photoInput" type="file" accept="image/*" capture="user">
+      <label for="clockPhoto" class="photoBtn">📸 Take Required Clock Photo</label>
+      <div class="photoHint">Required only for Clock In and Clock Out</div>
+      <img id="photoPreview" class="photoPreview hidden">
+    </div>
 
-<div class="row">
-  <button onclick="checkGPS()">Check GPS</button>
-  <button id="breakStartBtn" class="orange" onclick="startBreak()">Start Break</button>
-  <button id="breakEndBtn" class="green" onclick="endBreak()">End Break</button>
-</div>
+    <button id="smartClockBtn" class="bigClockBtn" onclick="smartClockAction()">Clock In</button>
 
-<div class="row">
-  <button class="smallLink" onclick="downloadWorkerCSV('today')">Download Today</button>
-  <button class="smallLink" onclick="downloadWorkerCSV('week')">Download Week</button>
-</div>
+    <div class="row">
+      <button onclick="checkGPS()">Check GPS</button>
+      <button id="breakStartBtn" class="orange" onclick="startBreak()">Start Break</button>
+      <button id="breakEndBtn" class="green" onclick="endBreak()">End Break</button>
+    </div>
 
-<p class="muted">Photo is required for Clock In and Clock Out. GPS must be inside radius.</p>
-```
+    <div class="row workerPdfRow">
+      <button id="dailyPdfBtn" class="pdfBtn" onclick="downloadDailyPDF()">📄 Daily Pay PDF</button>
+      <button id="weeklyPdfBtn" class="pdfBtn" onclick="downloadWeeklyPDF()">📄 Weekly Pay PDF</button>
+    </div>
 
+    <p class="muted">Photo + GPS are required for Clock In and Clock Out only. Break buttons work while your shift is active.</p>
   </div>
 
   <div class="card"><h3>My recent entries</h3><div id="myEntries"></div></div>
@@ -457,48 +624,242 @@ button:disabled{opacity:.35;cursor:not-allowed}
   </div>
 </div>
 
+
+<div id="photoModal" class="modal">
+  <div class="modalBox" style="max-width:760px;text-align:center">
+    <h3 id="photoModalTitle">Verification Photo</h3>
+    <img id="photoModalImg" class="verifyImg" src="">
+    <div class="row"><button class="smallLink" onclick="closePhotoModal()">Close</button></div>
+  </div>
+</div>
+
+
+<div id="editWorkerModal" class="modal">
+  <div class="modalBox">
+    <h3 data-en="Edit Worker Profile" data-es="Editar Perfil del Trabajador">Edit Worker Profile</h3>
+    <input id="editWorkerId" type="hidden">
+    <input id="editWorkerName" placeholder="Worker name">
+    <input id="editWorkerPin" placeholder="PIN">
+    <input id="editWorkerRate" type="number" placeholder="Hourly rate">
+    <select id="editWorkerActive">
+      <option value="true">Active</option>
+      <option value="false">Inactive</option>
+    </select>
+    <div class="photoBox">
+      <input id="editWorkerProfilePhoto" class="photoInput" type="file" accept="image/*" capture="user">
+      <label for="editWorkerProfilePhoto" class="photoBtn" data-en="📸 Replace Profile Photo" data-es="📸 Cambiar Foto de Perfil">📸 Replace Profile Photo</label>
+      <div class="photoHint" data-en="Optional. Leave empty to keep current photo." data-es="Opcional. Déjalo vacío para mantener la foto actual.">Optional. Leave empty to keep current photo.</div>
+      <img id="editWorkerProfilePreview" class="workerEditPhotoPreview hidden">
+    </div>
+    <button onclick="saveWorkerProfile()" data-en="Save Worker" data-es="Guardar Trabajador">Save Worker</button>
+    <button class="smallLink" onclick="closeEditWorkerModal()" data-en="Cancel" data-es="Cancelar">Cancel</button>
+  </div>
+</div>
+
 <script type="module">
 const firebaseConfig={
-  apiKey:"AIzaSyAG52xC_LHaIdT_vYqLpfrWjRm2hbCWqtI",
-  authDomain:"beeshift-5014a.firebaseapp.com",
-  projectId:"beeshift-5014a",
-  storageBucket:"beeshift-5014a.firebasestorage.app",
-  messagingSenderId:"1007218216405",
-  appId:"1:1007218216405:web:b86c19371b4fac23a3fbae"
+  apiKey:"AIzaSyCdBWbKFbfxLP_5q5EzbUBt7IrStvI5jLc",
+  authDomain:"beeshift-pro.firebaseapp.com",
+  projectId:"beeshift-pro",
+  storageBucket:"beeshift-pro.firebasestorage.app",
+  messagingSenderId:"395977679108",
+  appId:"1:395977679108:web:138bf800a720bfebcdb051"
 };
 
 const PLAN_LIMITS={basic:10,premium:25,pro:50};
-const COMPANY_ID = 'beeshift-5014a-main';
-
-window.openDirectKiosk = async function() {
-  try {
-    await loadKioskCompanyByCode(COMPANY_ID);
-  } catch(e) {
-    // If company doesn't exist yet, create it
-    currentCompanyId = COMPANY_ID;
-    localStorage.setItem('lastKioskCompany', currentCompanyId);
-    const co = await F.getDoc(companyRef());
-    if (!co.exists()) {
-      await F.setDoc(companyRef(), {
-        companyId: currentCompanyId, name: 'BeeShift', plan: 'pro', workerLimit: 50,
-        radiusMeters: 150, status: 'active', updatedAt: new Date().toISOString()
-      });
-    }
-    companySettings = {plan:'pro', workerLimit:50, radiusMeters:150, status:'active'};
-    listenData(); screen('kiosk');
-  }
-}
-
 let app,auth,db,F,currentUser=null,currentCompanyId=null;
 let companySettings={plan:'basic',workerLimit:10,radiusMeters:150,status:'active'};
-let workers=[],entries=[],selectedWorker=null,pinWorker=null,currentGPS=null,currentPhotoData=null;
+let workers=[],entries=[],selectedWorker=null,pinWorker=null,currentGPS=null,currentPhotoData=null,workerProfilePhotoData=null,editWorkerProfilePhotoData=null,signupCompanyLogoData=null,settingsCompanyLogoData=null,appLang=localStorage.getItem('beeshift_lang')||'en';
 let clockBusy=false,unsubW=null,unsubE=null;
 
-function screen(id){
+function showScreen(id){
   ['setup','home','kioskStart','login','signup','admin','kiosk','workerScreen'].forEach(x=>document.getElementById(x).classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 }
-window.screen=screen;
+window.showScreen=showScreen;
+// Safe alias so inline onclick="screen(...)" calls still work
+window.screen=showScreen;
+
+function safeText(v, fallback=''){
+  return String(v ?? fallback).replace(/[&<>"']/g, m => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#039;'
+  }[m]));
+}
+
+function workerProfileHTML(w){
+  try{
+    const name=safeText(w?.name || 'Worker');
+    const photo=w?.profilePhoto || w?.photo || w?.profileImage || '';
+    if(photo && typeof photo === 'string'){
+      return `<img class="profilePhoto" src="${photo}" alt="${name}">`;
+    }
+  }catch(e){
+    console.warn('workerProfileHTML fallback',e);
+  }
+  return `<div class="profilePlaceholder">👤</div>`;
+}
+
+function workerMiniPhotoHTML(w){
+  try{
+    const name=safeText(w?.name || 'Worker');
+    const photo=w?.profilePhoto || w?.photo || w?.profileImage || '';
+    if(photo && typeof photo === 'string'){
+      return `<img class="profileMini" src="${photo}" alt="${name}">`;
+    }
+  }catch(e){}
+  return '';
+}
+
+function profilePhotoButton(workerId){
+  const w=workers.find(x=>x.id===workerId);
+  if(!w || !w.profilePhoto)return '';
+  return `<button onclick="openProfilePhoto('${safeText(workerId)}')">Profile</button>`;
+}
+
+window.openProfilePhoto=(workerId)=>{
+  const w=workers.find(x=>x.id===workerId);
+  if(!w || !w.profilePhoto)return alert('No profile photo saved.');
+  document.getElementById('photoModalTitle').textContent='Profile Photo - '+(w.name||'Worker');
+  document.getElementById('photoModalImg').src=w.profilePhoto;
+  document.getElementById('photoModal').classList.add('open');
+};
+
+function kioskURL(){
+  const base=location.origin+location.pathname;
+  return `${base}?company=${encodeURIComponent(currentCompanyId||'')}`;
+}
+
+function renderCompanyBranding(){
+  const displayName=document.getElementById('companyDisplayName');
+  if(displayName)displayName.value=companySettings.name||currentCompanyId||'';
+
+  const codeBox=document.getElementById('companyCodeCopyBox');
+  if(codeBox)codeBox.textContent='Company Code: '+(currentCompanyId||'');
+
+  const logoBox=document.getElementById('currentCompanyLogoBox');
+  if(logoBox){
+    logoBox.innerHTML=companySettings.logo
+      ? `<img class="companyLogoPreview" src="${companySettings.logo}" alt="Company Logo">`
+      : `<p class="muted">No company logo uploaded yet.</p>`;
+  }
+
+  const kioskLogo=document.getElementById('kioskCompanyLogo');
+  if(kioskLogo){
+    kioskLogo.innerHTML=companySettings.logo
+      ? `<img class="companyKioskLogo" src="${companySettings.logo}" alt="Company Logo">`
+      : '';
+  }
+
+  const linkBox=document.getElementById('kioskLinkBox');
+  if(linkBox)linkBox.textContent=kioskURL();
+
+  const qrBox=document.getElementById('kioskQRBox');
+  if(qrBox && currentCompanyId){
+    const qr='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(kioskURL());
+    qrBox.innerHTML=`<img src="${qr}" alt="Kiosk QR" style="max-width:220px;width:100%;background:white;padding:10px;border-radius:14px">`;
+  }
+
+  const preview=document.getElementById('settingsCompanyLogoPreview');
+  if(preview){
+    if(settingsCompanyLogoData){preview.src=settingsCompanyLogoData;preview.classList.remove('hidden')}
+    else{preview.src='';preview.classList.add('hidden')}
+  }
+}
+
+window.copyCompanyCode=async()=>{
+  try{
+    await navigator.clipboard.writeText(currentCompanyId||'');
+    msg('brandingMsg','Company code copied','ok');
+  }catch(e){
+    alert('Company Code: '+currentCompanyId);
+  }
+};
+
+window.copyKioskLink=async()=>{
+  try{
+    await navigator.clipboard.writeText(kioskURL());
+    msg('brandingMsg','Kiosk link copied','ok');
+  }catch(e){
+    alert(kioskURL());
+  }
+};
+
+window.saveCompanyBranding=async()=>{
+  const name=(document.getElementById('companyDisplayName')?.value||currentCompanyId||'').trim();
+  const data={name,updatedAt:new Date().toISOString()};
+  if(settingsCompanyLogoData)data.logo=settingsCompanyLogoData;
+  await F.setDoc(companyRef(),data,{merge:true});
+  companySettings={...companySettings,...data};
+  settingsCompanyLogoData=null;
+  const file=document.getElementById('settingsCompanyLogo');
+  if(file)file.value='';
+  renderCompanyBranding();
+  msg('brandingMsg','Branding saved','ok');
+};
+
+
+const T={
+  en:{
+    workerKiosk:'👷 Worker Kiosk',adminLogin:'🔐 Admin Login',createCompany:'➕ Create Company',
+    continue:'Continue',back:'Back',login:'Login',dashboard:'Dashboard',workers:'Workers',payroll:'Payroll',timeLogs:'Time Logs',settings:'Settings',
+    clockIn:'⏱ Clock In',clockOut:'⏹ Clock Out',startBreak:'Start Break',endBreak:'End Break',checkGPS:'Check GPS',
+    downloadToday:'Download Today',downloadWeek:'Download Week',photoLabel:'📸 Take Required Clock Photo',
+    photoHint:'Photo + GPS are required for Clock In and Clock Out only. Break buttons work while your shift is active.'
+  },
+  es:{
+    workerKiosk:'👷 Kiosko Trabajador',adminLogin:'🔐 Admin',createCompany:'➕ Crear Empresa',
+    continue:'Continuar',back:'Atrás',login:'Entrar',dashboard:'Panel',workers:'Trabajadores',payroll:'Nómina',timeLogs:'Registros',settings:'Ajustes',
+    clockIn:'⏱ Entrada',clockOut:'⏹ Salida',startBreak:'Iniciar Descanso',endBreak:'Terminar Descanso',checkGPS:'Revisar GPS',
+    downloadToday:'Descargar Hoy',downloadWeek:'Descargar Semana',photoLabel:'📸 Tomar Foto Requerida',
+    photoHint:'Foto + GPS solo son requeridos para Entrada y Salida. Los descansos funcionan mientras el turno está activo.'
+  }
+};
+function tr(k){return (T[appLang]&&T[appLang][k])||T.en[k]||k}
+function setText(selector,text){document.querySelectorAll(selector).forEach(e=>e.textContent=text)}
+window.toggleAppLang=()=>{
+  appLang=appLang==='en'?'es':'en';
+  localStorage.setItem('beeshift_lang',appLang);
+  applyLang();
+  renderAll();
+}
+function applyLang(){
+  const b=document.getElementById('langToggleBtn');
+  if(b)b.textContent=appLang==='en'?'Español':'English';
+  document.documentElement.lang=appLang;
+  document.querySelectorAll('[data-en]').forEach(el=>{el.textContent=el.dataset[appLang]||el.dataset.en});
+  setText('button[onclick="openWorkerKioskStart()"]',tr('workerKiosk'));
+  setText('button[onclick="openAdminLogin()"]',tr('adminLogin'));
+  setText('button[onclick="openCreateCompany()"]',tr('createCompany'));
+  setText('button[onclick="loadKioskCompany()"]',tr('continue'));
+  setText('button[onclick="login()"]',tr('login'));
+  setText('button[onclick="signup()"]',tr('createCompany'));
+  setText('button[onclick="checkGPS()"]',tr('checkGPS'));
+  setText('#breakStartBtn',tr('startBreak'));
+  setText('#breakEndBtn',tr('endBreak'));
+  setText("button[onclick=\"downloadWorkerCSV(\'today\')\"]",tr("downloadToday"));
+  setText("button[onclick=\"downloadWorkerCSV(\'week\')\"]",tr("downloadWeek"));
+  const photoLabel=document.querySelector('label[for="clockPhoto"]'); if(photoLabel) photoLabel.textContent=tr('photoLabel');
+  const workerHint=document.querySelector('#workerScreen .photoHint'); if(workerHint) workerHint.textContent=tr('photoHint');
+}
+
+
+
+// auto code from signup name
+document.addEventListener('input',e=>{
+  if(e.target?.id==='signupCompanyName'){
+    const codeEl=document.getElementById('signupCompanyCode');
+    if(codeEl && !codeEl.dataset.manual){
+      codeEl.value=cleanCompany(e.target.value);
+    }
+  }
+  if(e.target?.id==='signupCompanyCode'){
+    e.target.dataset.manual='true';
+  }
+});
 
 function msg(id,t,c='error'){
   const e=document.getElementById(id);
@@ -522,6 +883,7 @@ window.openAdminLogin=()=>screen('login');
 window.openCreateCompany=()=>screen('signup');
 
 async function init(){
+  applyLang();
   try{
     const A=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
     const AU=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
@@ -532,6 +894,11 @@ async function init(){
     F={...AU,...FS};
     F.onAuthStateChanged(auth,async u=>{
       currentUser=u;
+      const params=new URLSearchParams(location.search);
+      const directCompany=params.get('company');
+      if(directCompany){
+        try{await loadKioskCompanyByCode(directCompany);return}catch(e){console.warn(e)}
+      }
       if(u){await loadUserCompany(u);startApp()}
       else screen('home');
     });
@@ -554,6 +921,7 @@ async function createOrUpdateCompany(user,companyInput,companyName=''){
     workerLimit:10,
     radiusMeters:150,
     status:'active',
+    ...(signupCompanyLogoData?{logo:signupCompanyLogoData}:{}),
     updatedAt:new Date().toISOString()
   },{merge:true});
 
@@ -585,6 +953,7 @@ window.signup=async()=>{
     const cred=await F.createUserWithEmailAndPassword(auth,email,pass);
     await createOrUpdateCompany(cred.user,code,name);
     currentUser=cred.user;
+    signupCompanyLogoData=null;
     startApp();
   }catch(e){msg('signupMsg',e.message)}
 }
@@ -592,7 +961,7 @@ window.signup=async()=>{
 window.login=async()=>{
   try{
     const cred=await F.signInWithEmailAndPassword(auth,document.getElementById('email').value.trim(),document.getElementById('pass').value);
-    currentCompanyId=COMPANY_ID; localStorage.setItem('companyId',currentCompanyId);
+    if(document.getElementById('company').value.trim())await createOrUpdateCompany(cred.user,document.getElementById('company').value.trim());
     else await loadUserCompany(cred.user);
     currentUser=cred.user;
     startApp();
@@ -617,7 +986,8 @@ async function loadKioskCompanyByCode(code){
 
   if(companySettings.status==='deleted'||companySettings.status==='pending_delete')throw new Error('Company account inactive');
 
-  document.getElementById('kioskCompany').innerHTML=`Company: <b>${currentCompanyId}</b>`;
+  document.getElementById('kioskCompany').innerHTML=`Company: <b>${currentCompanyId}</b><br>Code: <b>${currentCompanyId}</b>`;
+  renderCompanyBranding();
   listenData();
   screen('kiosk');
 }
@@ -639,10 +1009,11 @@ window.leaveKiosk=()=>{
 
 function startApp(){
   document.getElementById('companyInfo').innerHTML=`Owner: <b>${currentUser.email}</b><br>Company: <b>${currentCompanyId}</b>`;
-  document.getElementById('kioskCompany').innerHTML=`Company: <b>${currentCompanyId}</b>`;
+  document.getElementById('kioskCompany').innerHTML=`Company: <b>${companySettings.name||currentCompanyId}</b><br>Code: <b>${currentCompanyId}</b>`;
   document.getElementById('siteLat').value=companySettings.siteLat||'';
   document.getElementById('siteLng').value=companySettings.siteLng||'';
   document.getElementById('siteRadius').value=companySettings.radiusMeters||150;
+  renderCompanyBranding();
   listenData();
   screen('admin');
 }
@@ -674,489 +1045,178 @@ function showAdminTab(id,btn){
 window.showAdminTab=showAdminTab;
 
 function openEntry(id){return entries.find(e=>e.workerId===id&&e.status==='active'&&!e.outTime)}
-function hours(e){
-  if(!e.outTime)return 0;
-  return Math.round(Math.max(0,(new Date(e.outTime)-new Date(e.inTime)-(e.breakMins||0)*60000)/3600000)*100)/100;
-}
 function fmtDate(d){return new Date(d).toISOString().slice(0,10)}
 function fmtTime(d){return new Date(d).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
 function money(n){return '$'+Number(n||0).toFixed(2)}
-function weekStart(){let d=new Date(),day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);d.setHours(0,0,0,0);return d}
+function weekStart(){let d=new Date(),day=(d.getDay()+2)%7;d.setDate(d.getDate()-day);d.setHours(0,0,0,0);return d}
 function isToday(e){return fmtDate(e.inTime)===fmtDate(new Date())}
 function isThisWeek(e){return new Date(e.inTime)>=weekStart()}
 
 function renderAll(){
-  renderWorkers();
-  renderKiosk();
-  renderDash();
-  renderPayroll();
-  renderEntries();
-  renderWorkerScreen();
+  const jobs=[
+    ['renderWorkers',()=>renderWorkers()],
+    ['renderKiosk',()=>renderKiosk()],
+    ['renderDash',()=>renderDash()],
+    ['renderPayroll',()=>renderPayroll()],
+    ['renderEntries',()=>renderEntries()],
+    ['renderWorkerScreen',()=>renderWorkerScreen()],
+    ['renderCompanyBranding',()=>renderCompanyBranding()]
+  ];
+  jobs.forEach(([name,fn])=>{
+    try{fn()}catch(e){console.error(name+' failed:',e)}
+  });
+}
+function getLocalDateKey(date){
+  const d=new Date(date);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,'0')+"-"+String(d.getDate()).padStart(2,'0');
+}
+function sameLocalDay(a,b){
+  return getLocalDateKey(a)===getLocalDateKey(b);
+}
+function entryHoursLive(e){
+  if(!e||!e.inTime)return 0;
+
+  const start=new Date(e.inTime);
+  let end=e.outTime?new Date(e.outTime):new Date();
+
+  // overnight protection
+  if(end<start)end.setDate(end.getDate()+1);
+
+  let breakMs=(e.breakMins||0)*60000;
+  if(!e.outTime&&e.breakStart){
+    breakMs+=new Date()-new Date(e.breakStart);
+  }
+
+  return Math.max(0,(end-start-breakMs)/3600000);
+}
+function isTodayEntry(e){
+  return e&&e.inTime&&sameLocalDay(e.inTime,new Date());
+}
+function workerRateForEntry(e){
+  const w=workers.find(x=>x.id===e.workerId);
+  return Number(w?.rate||0);
 }
 
 function renderDash(){
-  const el=document.getElementById('dash');if(!el)return;
+  const el=document.getElementById('dash');
+  if(!el)return;
 
   const active=entries.filter(e=>e.status==='active'&&!e.outTime).length;
-  const today=entries.filter(isToday);
-  const todayH=today.reduce((s,e)=>s+hours(e),0);
-  const todayGross=today.reduce((s,e)=>{
-    const w=workers.find(x=>x.id===e.workerId);
-    return s+hours(e)*Number(w?.rate||0);
-  },0);
+
+  // Today totals include completed logs AND active running clock-ins, using local date
+  const todayEntries=entries.filter(isTodayEntry);
+  const todayHours=todayEntries.reduce((s,e)=>s+entryHoursLive(e),0);
+  const todayGross=todayEntries.reduce((s,e)=>s+(entryHoursLive(e)*workerRateForEntry(e)),0);
 
   el.innerHTML=`
     <div class="stat"><small>Workers</small><b>${workers.length}/${companySettings.workerLimit||10}</b></div>
     <div class="stat"><small>Active Now</small><b>${active}</b></div>
-    <div class="stat"><small>Today Hours</small><b>${todayH.toFixed(2)}</b></div>
+    <div class="stat"><small>Today Hours</small><b>${todayHours.toFixed(2)}</b></div>
     <div class="stat"><small>Today Gross</small><b>${money(todayGross)}</b></div>
   `;
 
-  document.getElementById('planBadge').textContent=`Plan: ${(companySettings.plan||'basic').toUpperCase()}`;
-  document.getElementById('companyStatusBadge').textContent=`Status: ${(companySettings.status||'active').toUpperCase()}`;
+  const plan=document.getElementById('planBadge');
+  if(plan)plan.textContent=`Plan: ${(companySettings.plan||'basic').toUpperCase()}`;
+
+  const st=document.getElementById('companyStatusBadge');
+  if(st)st.textContent=`Status: ${(companySettings.status||'active').toUpperCase()}`;
+}
+
+function refreshLiveAdminDash(){
+  const admin=document.getElementById('admin');
+  if(admin&&!admin.classList.contains('hidden'))renderDash();
 }
 
 function renderWorkers(){
   const el=document.getElementById('workers');if(!el)return;
-
-  el.innerHTML=workers.map(w=>`
-    <div class="worker">
-      <b>${w.name}</b><br>
-      PIN: ${w.pin}<br>
-      Rate: ${money(w.rate)}/hr<br>
-      Status: ${openEntry(w.id)?'<span class="statusIn">🟢 In</span>':'<span class="statusOut">⬤ Out</span>'}<br>
-      <button onclick="viewWorkerLogs('${w.id}')">View Logs</button>
-      <button class="danger" onclick="removeWorker('${w.id}')">Remove</button>
-    </div>
-  `).join('')||'<div class="worker">No workers yet</div>';
+  try{
+    const list=Array.isArray(workers)?workers:[];
+    el.innerHTML=list.map(w=>{
+      const id=safeText(w?.id||'');
+      const name=safeText(w?.name||'Worker');
+      const pin=safeText(w?.pin||'');
+      const rate=Number(w?.rate||0);
+      return `
+        <div class="worker">
+          ${workerProfileHTML(w)}
+          <b>${name}</b><br>
+          PIN: ${pin}<br>
+          Rate: ${money(rate)}/hr<br>
+          Status: ${openEntry(w.id)?'<span class="statusIn">🟢 In</span>':'<span class="statusOut">⬤ Out</span>'}<br>
+          ${w?.profilePhoto?'<span class="pill">Profile Photo ✓</span>':'<span class="pill">No Photo</span>'}<br>
+          <button onclick="viewWorkerLogs('${id}')">View Logs</button>
+          <button onclick="openEditWorker('${id}')">Edit Profile</button>
+          <button class="danger" onclick="removeWorker('${id}')">Remove</button>
+        </div>
+      `;
+    }).join('')||'<div class="worker">No workers yet</div>';
+  }catch(e){
+    console.error('renderWorkers error:',e);
+    el.innerHTML='<div class="worker error">Workers could not render.</div>';
+  }
 }
 
 function renderKiosk(){
   const el=document.getElementById('kioskWorkers');if(!el)return;
-
-  el.innerHTML=workers.map(w=>`
-    <div class="worker" onclick="openPin('${w.id}')">
-      <b>${w.name}</b><br>
-      <span class="muted">${openEntry(w.id)?'🟢 Clocked In':'⬤ Clocked Out'}</span>
-    </div>
-  `).join('')||'<div class="worker">No workers yet</div>';
+  try{
+    const list=(Array.isArray(workers)?workers:[]).filter(w=>w && w.active!==false);
+    el.innerHTML=list.map(w=>{
+      const id=safeText(w?.id||'');
+      const name=safeText(w?.name||'Worker');
+      return `
+        <div class="worker" onclick="openPin('${id}')">
+          ${workerProfileHTML(w)}
+          <b>${name}</b><br>
+          <span class="muted">${openEntry(w.id)?'🟢 Clocked In':'⬤ Clocked Out'}</span>
+        </div>
+      `;
+    }).join('')||'<div class="worker">No workers yet</div>';
+  }catch(e){
+    console.error('renderKiosk error:',e);
+    el.innerHTML='<div class="worker error">Kiosk workers could not render.</div>';
+  }
 }
 
 function renderPayroll(){
   const el=document.getElementById('payroll');if(!el)return;
-
-  el.innerHTML=workers.map(w=>{
-    const h=entries.filter(e=>e.workerId===w.id).reduce((s,e)=>s+hours(e),0);
-    return`
-      <div class="table-row">
-        <span>${w.name}</span>
-        <span>${h.toFixed(2)}</span>
-        <span>${money(w.rate)}</span>
-        <span>${money(h*Number(w.rate||0))}</span>
-        <span>OK</span>
-        <span><button onclick="viewWorkerLogs('${w.id}')">Logs</button></span>
-      </div>
-    `;
-  }).join('')||'<p class="muted">No payroll yet</p>';
+  try{
+    el.innerHTML=(Array.isArray(workers)?workers:[]).map(w=>{
+      const h=entries.filter(e=>e.workerId===w.id).reduce((s,e)=>s+entryHoursLive(e),0);
+      return`
+        <div class="table-row">
+          <span>${workerMiniPhotoHTML(w)}${safeText(w.name||'Worker')}</span>
+          <span>${h.toFixed(2)}</span>
+          <span>${money(w.rate)}</span>
+          <span>${money(h*Number(w.rate||0))}</span>
+          <span>${openEntry(w.id)?'<span class="statusIn">In</span>':'<span class="statusOut">Out</span>'}</span>
+          <span><button onclick="viewWorkerLogs('${safeText(w.id)}')">Logs</button></span>
+        </div>
+      `;
+    }).join('')||'<p class="muted">No payroll yet</p>';
+  }catch(e){
+    console.error('renderPayroll error:',e);
+    el.innerHTML='<p class="error">Payroll could not render.</p>';
+  }
 }
 
 function renderEntries(){
   const el=document.getElementById('entries');if(!el)return;
-
-  el.innerHTML=entries.map(e=>`
-    <div class="table-row">
-      <span>${e.workerName}</span>
-      <span>${fmtDate(e.inTime)}</span>
-      <span>${fmtTime(e.inTime)}</span>
-      <span>${e.outTime?fmtTime(e.outTime):'--'}</span>
-      <span>${hours(e).toFixed(2)}</span>
-      <span><button onclick="openEditEntry('${e.id}')">Edit</button></span>
-      ${e.editedAt?`<div class="audit" style="grid-column:1/-1">Edited by ${e.editedBy||'admin'} at ${new Date(e.editedAt).toLocaleString()}</div>`:''}
-    </div>
-  `).join('')||'<p class="muted">No entries yet</p>';
-}
-
-window.viewWorkerLogs=(id)=>{
-  showAdminTab('logsTab',document.querySelectorAll('.tab')[3]);
-  const list=entries.filter(e=>e.workerId===id);
-  document.getElementById('entries').innerHTML=list.map(e=>`
-    <div class="table-row">
-      <span>${e.workerName}</span>
-      <span>${fmtDate(e.inTime)}</span>
-      <span>${fmtTime(e.inTime)}</span>
-      <span>${e.outTime?fmtTime(e.outTime):'--'}</span>
-      <span>${hours(e).toFixed(2)}</span>
-      <span><button onclick="openEditEntry('${e.id}')">Edit</button></span>
-      ${e.editedAt?`<div class="audit" style="grid-column:1/-1">Edited by ${e.editedBy||'admin'} at ${new Date(e.editedAt).toLocaleString()}</div>`:''}
-    </div>
-  `).join('')||'<p class="muted">No logs</p>';
-}
-
-window.openEditEntry=(id)=>{
-  const e=entries.find(x=>x.id===id);if(!e)return;
-
-  document.getElementById('editEntryId').value=id;
-  document.getElementById('editDate').value=fmtDate(e.inTime);
-  document.getElementById('editIn').value=new Date(e.inTime).toTimeString().slice(0,5);
-  document.getElementById('editOut').value=e.outTime?new Date(e.outTime).toTimeString().slice(0,5):'';
-  document.getElementById('editBreak').value=e.breakMins||0;
-  document.getElementById('editModal').classList.add('open');
-}
-
-window.closeEditModal=()=>document.getElementById('editModal').classList.remove('open');
-
-window.saveEntryEdit=async()=>{
-  const id=document.getElementById('editEntryId').value;
-  const e=entries.find(x=>x.id===id);
-  if(!e)return;
-
-  const date=document.getElementById('editDate').value;
-  const inn=document.getElementById('editIn').value;
-  const out=document.getElementById('editOut').value;
-  const br=Number(document.getElementById('editBreak').value||0);
-
-  if(!date||!inn)return alert('Date and clock-in time are required.');
-
-  await F.updateDoc(entryDoc(id),{
-    originalInTime:e.originalInTime||e.inTime,
-    originalOutTime:e.originalOutTime||e.outTime||null,
-    inTime:new Date(date+'T'+inn).toISOString(),
-    outTime:out?new Date(date+'T'+out).toISOString():null,
-    breakMins:br,
-    status:out?'completed':'active',
-    editedBy:currentUser?.email||'admin',
-    editedAt:new Date().toISOString()
-  });
-
-  closeEditModal();
-}
-
-window.addWorker=async()=>{
   try{
-    const name=document.getElementById('workerName').value.trim();
-    const pin=document.getElementById('workerPin').value.trim();
-    const rate=Number(document.getElementById('workerRate').value||0);
-
-    if(!name||!pin)return alert('Add name and PIN');
-
-    const current=await F.getDocs(workersRef());
-    if(current.size>=Number(companySettings.workerLimit||10))return alert('Plan limit reached');
-
-    await F.addDoc(workersRef(),{name,pin,rate,active:true,createdAt:new Date().toISOString()});
-    ['workerName','workerPin','workerRate'].forEach(id=>document.getElementById(id).value='');
-  }catch(e){alert('Add worker error: '+e.message)}
-}
-
-window.removeWorker=async(id)=>{
-  if(confirm('Remove this worker?'))await F.deleteDoc(F.doc(db,'companies',currentCompanyId,'workers',id));
-}
-
-window.setPlan=async(plan)=>{
-  const lim=PLAN_LIMITS[plan]||10;
-  companySettings={...companySettings,plan,workerLimit:lim};
-  await F.setDoc(companyRef(),{plan,workerLimit:lim,updatedAt:new Date().toISOString()},{merge:true});
-  renderDash();
-}
-
-window.saveSettings=async()=>{
-  const siteLat=Number(document.getElementById('siteLat').value);
-  const siteLng=Number(document.getElementById('siteLng').value);
-  const radiusMeters=Number(document.getElementById('siteRadius').value||150);
-
-  if(isNaN(siteLat)||isNaN(siteLng))return alert('Add valid latitude and longitude');
-
-  companySettings={...companySettings,siteLat,siteLng,radiusMeters};
-  await F.setDoc(companyRef(),{siteLat,siteLng,radiusMeters,updatedAt:new Date().toISOString()},{merge:true});
-  msg('settingsMsg','GPS settings saved','ok');
-}
-
-function getPosition(){
-  return new Promise((res,rej)=>
-    navigator.geolocation?
-      navigator.geolocation.getCurrentPosition(
-        p=>res({lat:p.coords.latitude,lng:p.coords.longitude,accuracy:p.coords.accuracy}),
-        rej,
-        {enableHighAccuracy:true,timeout:10000}
-      ):
-      rej(new Error('GPS not supported'))
-  );
-}
-
-function dist(a,b,c,d){
-  const R=6371000,rad=Math.PI/180,dLat=(c-a)*rad,dLng=(d-b)*rad;
-  const x=Math.sin(dLat/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(dLng/2)**2;
-  return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
-}
-
-window.useMyLocationForSite=async()=>{
-  const p=await getPosition();
-  document.getElementById('siteLat').value=p.lat.toFixed(6);
-  document.getElementById('siteLng').value=p.lng.toFixed(6);
-  msg('settingsMsg','Location loaded. Tap Save Settings.','ok');
-}
-
-window.checkGPS=async()=>{
-  try{
-    const p=await getPosition();
-    currentGPS=p;
-
-    if(companySettings.siteLat&&companySettings.siteLng){
-      const d=dist(Number(companySettings.siteLat),Number(companySettings.siteLng),p.lat,p.lng);
-      const ok=d<=Number(companySettings.radiusMeters||150);
-      document.getElementById('gpsStatus').textContent=`GPS: ${Math.round(d)}m from site (${ok?'OK':'OUTSIDE'})`;
-      document.getElementById('gpsStatus').className=ok?'ok':'error';
-    }else{
-      document.getElementById('gpsStatus').textContent='GPS captured';
-      document.getElementById('gpsStatus').className='ok';
-    }
-  }catch(e){
-    document.getElementById('gpsStatus').textContent='GPS error: '+e.message;
-    document.getElementById('gpsStatus').className='error';
-  }
-}
-
-function gpsAllowed(){
-  if(!companySettings.siteLat||!companySettings.siteLng)return true;
-  if(!currentGPS){alert('Check GPS first');return false}
-
-  const d=dist(Number(companySettings.siteLat),Number(companySettings.siteLng),currentGPS.lat,currentGPS.lng);
-  if(d>Number(companySettings.radiusMeters||150)){alert('Outside GPS radius');return false}
-  return true;
-}
-
-function compressImage(file){
-  return new Promise((resolve,reject)=>{
-    const img=new Image(),r=new FileReader();
-    r.onload=()=>{
-      img.onload=()=>{
-        const max=420,ratio=Math.min(max/img.width,max/img.height,1);
-        const c=document.createElement('canvas');
-        c.width=Math.round(img.width*ratio);
-        c.height=Math.round(img.height*ratio);
-        const x=c.getContext('2d');
-        x.drawImage(img,0,0,c.width,c.height);
-        resolve(c.toDataURL('image/jpeg',0.45));
-      };
-      img.onerror=reject;
-      img.src=r.result;
-    };
-    r.onerror=reject;
-    r.readAsDataURL(file);
-  });
-}
-
-document.addEventListener('change',async e=>{
-  if(e.target?.id==='clockPhoto'){
-    const f=e.target.files[0];
-    if(!f)return;
-    try{
-      currentPhotoData=await compressImage(f);
-      const img=document.getElementById('photoPreview');
-      img.src=currentPhotoData;
-      img.classList.remove('hidden');
-    }catch(err){alert('Photo error: '+err.message)}
-  }
-});
-
-function needPhoto(){
-  if(!currentPhotoData){alert('Photo is required');return false}
-  return true;
-}
-
-function resetPhoto(){
-  currentPhotoData=null;
-  const i=document.getElementById('clockPhoto'),img=document.getElementById('photoPreview');
-  if(i)i.value='';
-  if(img){img.src='';img.classList.add('hidden')}
-}
-
-window.openPin=id=>{
-  pinWorker=workers.find(w=>w.id===id);
-  document.getElementById('pinWorkerName').textContent=pinWorker.name;
-  document.getElementById('pinInput').value='';
-  document.getElementById('pinMsg').textContent='';
-  document.getElementById('pinModal').classList.add('open');
-}
-
-window.closePin=()=>document.getElementById('pinModal').classList.remove('open');
-
-window.checkPin=()=>{
-  if(document.getElementById('pinInput').value===String(pinWorker.pin)){
-    selectedWorker=pinWorker;
-    closePin();
-    document.getElementById('activeWorkerName').textContent=selectedWorker.name;
-    screen('workerScreen');
-    resetPhoto();
-    renderWorkerScreen();
-    checkGPS();
-  }else document.getElementById('pinMsg').textContent='Wrong PIN';
-}
-
-window.backToKiosk=()=>{
-  selectedWorker=null;
-  screen('kiosk');
-}
-
-function workerEntries(range){
-  if(!selectedWorker)return[];
-  return entries
-    .filter(e=>e.workerId===selectedWorker.id)
-    .filter(e=>range==='today'?isToday(e):range==='week'?isThisWeek(e):true);
-}
-
-function renderWorkerScreen(){
-  if(!selectedWorker)return;
-
-  const o=openEntry(selectedWorker.id);
-  const isIn=!!o;
-  const rate=Number(selectedWorker.rate||0);
-
-  const td=workerEntries('today');
-  const wk=workerEntries('week');
-
-  const th=td.reduce((s,e)=>s+hours(e),0);
-  const wh=wk.reduce((s,e)=>s+hours(e),0);
-
-  document.getElementById('todayHours').textContent=th.toFixed(2)+'h';
-  document.getElementById('weekHours').textContent=wh.toFixed(2)+'h';
-  document.getElementById('todayEarn').textContent=money(th*rate);
-  document.getElementById('weekEarn').textContent=money(wh*rate);
-
-  document.getElementById('workerStatus').textContent=isIn?'Clocked In':'Out';
-
-  const btn=document.getElementById('smartClockBtn');
-  btn.disabled=clockBusy;
-  btn.textContent=isIn?'⏹ Clock Out':'⏱ Clock In';
-  btn.className='bigClockBtn '+(isIn?'danger':'');
-
-  document.getElementById('breakStartBtn').disabled=!isIn||!!(o&&o.breakStart)||clockBusy;
-  document.getElementById('breakEndBtn').disabled=!(o&&o.breakStart)||clockBusy;
-
-  document.getElementById('myEntries').innerHTML=entries
-    .filter(e=>e.workerId===selectedWorker.id)
-    .slice(0,8)
-    .map(e=>`
+    el.innerHTML=(Array.isArray(entries)?entries:[]).map(e=>`
       <div class="table-row">
+        <span>${safeText(e.workerName||workers.find(w=>w.id===e.workerId)?.name||'Worker')}</span>
         <span>${fmtDate(e.inTime)}</span>
         <span>${fmtTime(e.inTime)}</span>
         <span>${e.outTime?fmtTime(e.outTime):'--'}</span>
-        <span>${e.breakMins||0}m</span>
-        <span>${hours(e).toFixed(2)}h</span>
-        <span>${money(hours(e)*rate)}</span>
+        <span>${entryHoursLive(e).toFixed(2)}</span>
+        <span>${photoButtons(e)}</span>
+        ${e.editedAt?`<div class="audit" style="grid-column:1/-1">Edited by ${safeText(e.editedBy||'admin')} at ${new Date(e.editedAt).toLocaleString()}</div>`:''}
       </div>
     `).join('')||'<p class="muted">No entries yet</p>';
-}
-
-window.smartClockAction=()=>openEntry(selectedWorker.id)?clockOut():clockIn();
-
-window.clockIn=async()=>{
-  if(clockBusy||openEntry(selectedWorker.id))return;
-  if(!gpsAllowed()||!needPhoto())return;
-
-  clockBusy=true;
-  renderWorkerScreen();
-
-  try{
-    await F.addDoc(entriesRef(),{
-      workerId:selectedWorker.id,
-      workerName:selectedWorker.name,
-      inTime:new Date().toISOString(),
-      outTime:null,
-      breakMins:0,
-      status:'active',
-      gpsIn:currentGPS||null,
-      photoIn:currentPhotoData,
-      photoInSaved:true,
-      createdAt:new Date().toISOString()
-    });
-    resetPhoto();
-  }catch(e){alert('Clock In save error: '+e.message)}
-  finally{setTimeout(()=>{clockBusy=false;renderWorkerScreen()},800)}
-}
-
-window.clockOut=async()=>{
-  const o=openEntry(selectedWorker.id);
-  if(clockBusy||!o)return;
-  if(!gpsAllowed()||!needPhoto())return;
-
-  clockBusy=true;
-  renderWorkerScreen();
-
-  try{
-    await F.updateDoc(entryDoc(o.id),{
-      outTime:new Date().toISOString(),
-      status:'completed',
-      gpsOut:currentGPS||null,
-      photoOut:currentPhotoData,
-      photoOutSaved:true
-    });
-    resetPhoto();
-  }catch(e){alert('Clock Out save error: '+e.message)}
-  finally{setTimeout(()=>{clockBusy=false;renderWorkerScreen()},800)}
-}
-
-window.startBreak=async()=>{
-  const o=openEntry(selectedWorker.id);
-  if(o)await F.updateDoc(entryDoc(o.id),{breakStart:new Date().toISOString()});
-}
-
-window.endBreak=async()=>{
-  const o=openEntry(selectedWorker.id);
-  if(o&&o.breakStart){
-    const m=Math.round((new Date()-new Date(o.breakStart))/60000);
-    await F.updateDoc(entryDoc(o.id),{breakStart:null,breakMins:(o.breakMins||0)+m});
+  }catch(e){
+    console.error('renderEntries error:',e);
+    el.innerHTML='<p class="error">Time logs could not render.</p>';
   }
 }
 
-function dlCSV(rows,name){
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.join('\n'));
-  a.download=name;
-  a.click();
-}
 
-window.downloadWorkerCSV=(range)=>{
-  const data=workerEntries(range);
-  const rate=Number(selectedWorker.rate||0);
-  const rows=['Worker,Date,In,Out,BreakMinutes,Hours,Earnings'];
-
-  data.forEach(e=>rows.push(`${selectedWorker.name},${fmtDate(e.inTime)},${fmtTime(e.inTime)},${e.outTime?fmtTime(e.outTime):''},${e.breakMins||0},${hours(e).toFixed(2)},${(hours(e)*rate).toFixed(2)}`));
-
-  dlCSV(rows,`beeshift-${selectedWorker.name}-${range}.csv`);
-}
-
-window.exportCSV=()=>{
-  const rows=['Worker,Date,In,Out,BreakMinutes,Hours'];
-  entries.forEach(e=>rows.push(`${e.workerName},${fmtDate(e.inTime)},${fmtTime(e.inTime)},${e.outTime?fmtTime(e.outTime):''},${e.breakMins||0},${hours(e).toFixed(2)}`));
-  dlCSV(rows,'beeshift-company-payroll.csv');
-}
-
-window.deleteCompanyAccount=async()=>{
-  const confirmCode=document.getElementById('deleteConfirm').value.trim();
-  if(confirmCode!==currentCompanyId)return alert('Type the exact company code to confirm.');
-  if(!confirm('Deactivate this company account? Workers will be blocked.'))return;
-
-  await F.setDoc(companyRef(),{
-    status:'pending_delete',
-    deleteRequestedAt:new Date().toISOString(),
-    deleteRequestedBy:currentUser.email
-  },{merge:true});
-
-  alert('Company marked for deletion. Cancel Stripe subscription manually until automatic billing is connected.');
-  logout();
-}
-
-setInterval(()=>{
-  const el=document.getElementById('liveClock');
-  if(el)el.textContent=new Date().toLocaleTimeString();
-},1000);
-
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
-}
-
-init();
-</script>
-
-</body>
-</html>
